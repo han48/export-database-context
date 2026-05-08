@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "db-schema-export"
+version = "0.1.0"
+description = "Export PostgreSQL database schema to Markdown files"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+
+dependencies = [
+    "psycopg2-binary>=2.9.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "hypothesis>=6.0.0",
+    "pytest-mock>=3.0.0",
+]
+ai = [
+    "transformers>=4.40.0",
+    "torch>=2.0.0",
+    "accelerate>=0.26.0",
+]
+
+[project.scripts]
+db-schema-export = "db_schema_export.cli:main"
+db-schema-analyze = "db_schema_export.ai_analyzer:main"
+
+[tool.setuptools.packages.find]
+include = ["db_schema_export*"]
+
+[tool.pytest.ini_options]
+testpaths = ["db_schema_export/tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+[tool.coverage.run]
+source = ["db_schema_export"]
+omit = ["db_schema_export/tests/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true

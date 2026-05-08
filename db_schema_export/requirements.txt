@@ -1,0 +1,5 @@
+psycopg2-binary>=2.9.0
+python-dotenv>=1.0.0
+transformers>=4.40.0
+torch>=2.0.0
+accelerate>=0.26.0
